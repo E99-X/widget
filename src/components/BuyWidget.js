@@ -5,6 +5,7 @@ import symbol from "../assets/symbol.svg";
 
 const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, account, avatarUrl }) => {
   const [coinName, setCoinName] = useState("Huh?!");
+
   const {
     tokenAmount,
     setTokenAmount,
@@ -18,11 +19,17 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
 
   useEffect(() => {
     const extractCoinName = (tokenType) => {
-      const parts = tokenType.split("::");
-      return parts.length > 2 ? parts[2] : "Huh?!";
+      // Check if tokenType is valid and not undefined before calling split
+      if (tokenType && typeof tokenType === "string") {
+        const parts = tokenType.split("::");
+        return parts.length > 2 ? parts[2] : "Huh?!";  // Get the coin name, or use fallback
+      }
+      return "Huh?!";  // Default fallback if tokenType is invalid
     };
+    
+    // Set coin name based on tokenType (fallback to default if undefined or invalid)
     setCoinName(extractCoinName(tokenType));
-  }, []);
+  }, [tokenType]);  // Ensure useEffect runs when tokenType changes
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,12 +38,10 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
   }, [isSuccess]);
 
   return (
-    <div
-      className="w-100">
+    <div className="w-100">
       <div className="img-container w-100">
-      <img src={avatarUrl || symbol} alt="Token" />
+        <img src={avatarUrl || symbol} alt="Token" />
       </div>
-      
 
       {/* Input field with dynamic border color */}
       <input
