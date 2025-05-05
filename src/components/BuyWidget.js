@@ -3,7 +3,7 @@ import Button from "./Button";
 import { useBuyTokens } from "../hooks/useBuyTokens";
 import symbol from "../assets/symbol.svg";
 
-const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors }) => {
+const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, account, avatarUrl }) => {
   const [coinName, setCoinName] = useState("Huh?!");
   const {
     tokenAmount,
@@ -34,7 +34,7 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors }) =
     <div
       className="w-100">
       <div className="img-container w-100">
-        <img src={symbol} alt="Token"/>
+      <img src={avatarUrl || symbol} alt="Token" />
       </div>
       
 
@@ -58,7 +58,8 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors }) =
         label={`Buy ${coinName}`}
         style="primary"
         onClick={handleBuyTokens}
-        disabled={!!inputError || !tokenAmount || isSubmitting}
+        disabled={!account || !!inputError || !tokenAmount || isSubmitting}
+        customColors={customColors}
       />
     </div>
   );

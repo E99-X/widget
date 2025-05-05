@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Countdown = ({ summary, stageView }) => {
+const Countdown = ({ summary, stageView, customColors }) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0, hours: 0, minutes: 0, seconds: 0
   });

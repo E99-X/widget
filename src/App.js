@@ -8,7 +8,6 @@ import Countdown from "./components/Countdown";
 import Button from "./components/Button";
 import { useSaleSummary } from "./hooks/useSaleSummary";
 import { useSaleStage } from './hooks/useSaleStage';
-import symbol from "./assets/logo.svg";
 
 const App = ({ customColors = {} }) => {
   const account = useCurrentAccount();
@@ -17,6 +16,38 @@ const App = ({ customColors = {} }) => {
   const { stageView, isLoading: loadingStage, isError: isStageError, error: stageError } = useSaleStage(SALE_ID);
 
   const [isAdmin, setIsAdmin] = useState(false);
+
+   // Read URL query parameters
+   const urlParams = new URLSearchParams(window.location.search);
+   const saleId = urlParams.get("saleId");
+   const adminCapId = urlParams.get("adminCapId");
+   const tokenType = urlParams.get("tokenType");
+   
+   const primaryColor = urlParams.get("--primary-color") || '#a19d9d';
+   const bgrColor = urlParams.get("--bgr-color") || '#151516';
+   const accentColor = urlParams.get("--accent-color") || '#f8df00';
+   const avatarUrl = urlParams.get("avatarUrl");
+
+   // In the iframe widget component
+useEffect(() => {
+  const handleMessage = (event) => {
+    // Make sure the message is coming from the expected origin
+    if (event.origin !== "http://localhost:3000") return; // Update with actual parent domain
+    
+    if (event.data.type === "walletStatus") {
+      // Handle the wallet status here
+      console.log("Received wallet status from parent:", event.data.account);
+      // You can trigger wallet connection logic or update the iframe UI here
+    }
+  };
+
+  window.addEventListener("message", handleMessage);
+
+  return () => {
+    window.removeEventListener("message", handleMessage);
+  };
+}, []);
+
 
   useEffect(() => {
     if (account && saleSummary?.admin) {
@@ -66,6 +97,7 @@ const App = ({ customColors = {} }) => {
       <Countdown
         summary={saleSummary}
         stageView={stageView}
+        customColors={{ primaryColor, bgrColor, accentColor }}
       />
 
       <div className="w-100">
@@ -77,7 +109,7 @@ const App = ({ customColors = {} }) => {
             tokenType={TOKEN_TYP}
             summary={saleSummary}
             stageView={stageView}
-            customColors={customColors} // Passing dynamic colors to AdminWidget
+            customColors={{ primaryColor, bgrColor, accentColor }}
           />
         ) : (
           <BuyWidget
@@ -85,7 +117,9 @@ const App = ({ customColors = {} }) => {
             package_id={PACKAGE_ID}
             tokenType={TOKEN_TYP}
             stageView={stageView}
-            customColors={customColors} // Passing dynamic colors to BuyWidget
+            customColors={{ primaryColor, bgrColor, accentColor }}
+            account={account}
+            avatarUrl={avatarUrl}
           />
         )}
 
@@ -109,6 +143,7 @@ const App = ({ customColors = {} }) => {
         isStageError={isStageError}
         summaryError={summaryError}
         stageError={stageError}
+        customColors={{ primaryColor, bgrColor, accentColor }}
       />
       <div className="footer w-100 text-center">
       <p>© 2025 EggX. All rights reserved.</p>

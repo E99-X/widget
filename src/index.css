@@ -11,7 +11,7 @@
   --gap-medium: 16px;
   --gap-large: 32px;
   --font-size-base: 16px;
-  --font-size-large: 26px;
+  --font-size-large: clamp(16px, 9vw, 42px);
   --line-height-base: 1.5;
 
   --secondary-opacity: 0.5;
@@ -48,7 +48,7 @@ html, body {
 }
 
 .img-container {
-  padding: var(--gap-large) var(--gap-small) ;
+  padding: var(--gap-large);
   display: flex;
   justify-content: center;
   align-items: center; 

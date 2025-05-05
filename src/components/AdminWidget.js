@@ -12,6 +12,7 @@ const AdminWidget = ({
   tokenType,
   summary,
   stageView,
+  customColors
 }) => {
   const { saleState } = summary || {};
   const { advanceSale, isSubmitting } = useAdvanceSale({
@@ -46,9 +47,10 @@ const AdminWidget = ({
               <p className="margin-top text-primary">Start Token Sale Immediately</p>
               <Button
                 label={isSubmitting ? "Launching…" : "Start Sale"}
-                style=""
+                style="primary"
                 onClick={advanceSale}
                 disabled={isSubmitting}
+                customColors={customColors}
               />
             </div>
           ) : (
@@ -58,6 +60,7 @@ const AdminWidget = ({
                 isEnabled={isAutopilotEnabled}
                 onToggle={toggleAutopilot}
                 disabled={isAutopilotSubmitting}
+                customColors={customColors}
               />
               <p className="margin-top text-primary">Start new Stage when ready</p>
               <Button
@@ -65,6 +68,7 @@ const AdminWidget = ({
                 style="primary"
                 onClick={advanceSale}
                 disabled={isSubmitting}
+                customColors={customColors}
               />
             </div>
           )}

@@ -1,26 +1,14 @@
-// Constants
-/*
-export const PACKAGE_ID = '0x3a474265fc5094791e18d4d54d07244a92634c6b4781120f480f0de83863ccc3';
-export const AUTO_PACKAGE_ID = '0x207bf03cddd1f88631b56aa9190457afd2e580b576aebc16e63812402ee03d25';
-export const AUTOPILOT = '0x2ab953b17f112476340e5f8f86a41e16306ae00abbd0594dd5f192155ec26c69';
-
-export const TOKEN_TYP = '0xe857dc98547744e9def8b0268ed209d7ebc05627c8e269caca62ee57f3db391c::usercoin::USERCOIN';
-export const SALE_ID = '0xe74c1610a9105ab8424913d37d0d4efa39b427912dddd51a108692fe3ad3073b';
-export const ADMIN_CAP = '0xbb13a8b8ac4caa2df73dbcf6be929120e03b992e64caf1d84d9cef50046a2355';
-
-export const TOKEN_TYP = '0x8e77ec33ec37db04c912233f1c60fc6c6613e8f9a3eabd7fe39d321a357aafe4::usercoinew2::USERCOINEW2';
-export const SALE_ID = '0xa5fdc6051ff658685a10bf1e129f0603c1e501cc2b686a8c31dc0812fe5c72d5';
-export const ADMIN_CAP = '0xf37d69a65fd4b45202ce62721d6d88b0c86cd5f1983ca28485c4790707fabccc';
-*/
-
 // UPDATE
 export const PACKAGE_ID = '0x34218f8b8ed94c0c89bdf312188a612a9f9b2b4db6c70ff9c85e1ff52ea973c0';
 export const AUTO_PACKAGE_ID = '0xd884f7edb4b8b2fcacccc256673901d095873471bc95c1b1e9f9f0748ce28af2';
 export const AUTOPILOT = '0xb330c1f81a15bbf76b8c41906caa42808229be75d959b03335de5dfa27e0d5ad';
-
+/*
 export const TOKEN_TYP = '0xa897e88d1f215ce96b0bb0b6c98723169757876892dbbab1e4688f2ec31f1e86::usercoin::USERCOIN';
 export const SALE_ID = '0xc69678e07a59574607ab98b86b0834d3d35b939361c91b6bec40e599c06ad41d';
 export const ADMIN_CAP = '0xc80619052cb96d914c237e309c551cb1431b59faa6cf31f8d4233a21b33712d3';
-
+*/
+export const TOKEN_TYP = '0x34218f8b8ed94c0c89bdf312188a612a9f9b2b4db6c70ff9c85e1ff52ea973c0::eggx::EGGX';
+export const SALE_ID = '0xfdc0099051c8cb49257b5e54b3af9b3eb857da0c97011f5d3ddb5dd1df9a6255';
+export const ADMIN_CAP = '0x4542fcdb0a21781ccac48f60fcb92096e80286c9fd85bae23a2ce962133c4406';
 
 
