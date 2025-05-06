@@ -93,7 +93,7 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
             label="Disconnect"
             style="secondary"
             onClick={handleDisconnect}
-            customColors={{ primaryColor, bgrColor, accentColor }}
+            customColors={customColors}
           />
         ) : (
           <ConnectButton 
