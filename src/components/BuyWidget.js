@@ -58,7 +58,7 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
 
       <Button
         label={`Buy ${coinName}`}
-        style="primary"
+        styling="primary"
         onClick={handleBuyTokens}
         disabled={!account || !!inputError || !tokenAmount || isSubmitting}
         customColors={customColors}
