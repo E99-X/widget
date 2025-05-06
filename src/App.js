@@ -63,7 +63,6 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
       <Countdown
         summary={saleSummary}
         stageView={stageView}
-        customColors={{ primaryColor, bgrColor, accentColor }}
       />
 
       <div className="w-100">
@@ -94,6 +93,7 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
             label="Disconnect"
             style="secondary"
             onClick={handleDisconnect}
+            customColors={{ primaryColor, bgrColor, accentColor }}
           />
         ) : (
           <ConnectButton 
