@@ -46,10 +46,10 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
         value={tokenAmount}
         onChange={handleInputChange}
         placeholder="0"
-        className=""
+        style={{color: customColors.primaryColor}}
       />
 
-      {inputError && <p className="">{inputError}</p>}
+      {inputError && <p className="text-center">{inputError}</p>}
 
       <p className="stretch">
         <span>You pay:</span>{" "}

@@ -104,9 +104,8 @@ button.secondary {
   border-radius: 5px;
 }
 
-input, textarea {
+input {
   background-color: transparent;
-  color: var(--primary-color); 
   padding: var(--spacing-unit) var(--gap-small);
   width: 100%;
   font-size: var(--font-size-base);

@@ -12,8 +12,8 @@ const Stat = ({
   customColors
 }) => {
 
-  if (isSummaryLoading || isStageLoading) return <p>Loading sale summary and stage...</p>;
-  if (isSummaryError || isStageError) return <p>Error loading data — {summaryError?.message || stageError?.message || 'Please refresh.'}</p>;
+  if (isSummaryLoading || isStageLoading) return <p className='text-center'>Loading sale summary and stage...</p>;
+  if (isSummaryError || isStageError) return <p className='text-center'>Error loading data — {summaryError?.message || stageError?.message || 'Please refresh.'}</p>;
   if (!summary || !stageView) return <p className='text-center'>No sale summary or stage available</p>;
 
   return (
