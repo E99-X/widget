@@ -12,7 +12,7 @@ export const useBuyTokens = ({ saleId, package_id, tokenType, stageView }) => {
     },
     (error) => {
       console.error("Transaction failed:", error);
-      alert("An error occurred during the purchase.");
+      alert("An error occurred during the purchase. Make sure your wallet is connected");
     }
   );
   const [tokenAmount, setTokenAmount] = useState("");

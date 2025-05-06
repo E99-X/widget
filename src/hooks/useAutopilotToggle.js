@@ -11,7 +11,7 @@ export const useAutopilotToggle = (saleId, adminCapId, tokenType) => {
 
   const { executeTransaction, isSubmitting } = useTransaction(
     (result) => {
-      setIsAutopilotEnabled((prevState) => !prevState); // Toggle state after success
+      setIsAutopilotEnabled((prevState) => !prevState); 
     },
     (error) => {
       console.error("Error occurred during autopilot toggle:", error);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Button = ({ label, style, onClick, disabled }) => {
+const Button = ({ label, style, onClick, disabled, customColors }) => {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {

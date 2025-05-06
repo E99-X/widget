@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Countdown = ({ summary, stageView }) => {
+const Countdown = ({ summary, stageView, customColors }) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0, hours: 0, minutes: 0, seconds: 0
   });
@@ -33,19 +33,18 @@ const Countdown = ({ summary, stageView }) => {
     return () => clearInterval(timer);
   }, [stageView?.endMs]);
 
-    // Check if finModeText exists before rendering it
     if (!summary || !summary.finModeText) {
-      return <div>Loading...</div>; // Return loading state if summary or finModeText is not available
+      return <div>Loading...</div>; 
     }
 
   return (
     <div className="text-center">
       <p className="">{summary.finModeText == "Join Pool" ? 'Next Stage starts in:' : 'Burning in:'}</p>
       <div className="heading text-primary margin-top">
-        <span>{String(timeLeft.days).padStart(2, "0")}d :</span>{" "}
-        <span>{String(timeLeft.hours).padStart(2, "0")}h :</span>{" "}
-        <span>{String(timeLeft.minutes).padStart(2, "0")}m :</span>{" "}
-        <span>{String(timeLeft.seconds).padStart(2, "0")}s</span>
+        <span style={{color: customColors.primaryColor}}>{String(timeLeft.days).padStart(2, "0")}d :</span>{" "}
+        <span style={{color: customColors.primaryColor}}>{String(timeLeft.hours).padStart(2, "0")}h :</span>{" "}
+        <span style={{color: customColors.primaryColor}}>{String(timeLeft.minutes).padStart(2, "0")}m :</span>{" "}
+        <span style={{color: customColors.primaryColor}}>{String(timeLeft.seconds).padStart(2, "0")}s</span>
       </div>
     </div>
   );

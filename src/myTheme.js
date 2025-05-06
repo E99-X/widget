@@ -24,4 +24,12 @@ export const myTheme = {
 		primaryButton: 'none',
 	},
 
+  typography: {
+    ...lightTheme.typography,
+		fontFamily: 'var(--font-family)',
+		fontStyle: 'normal',
+		lineHeight: '1.3',
+		letterSpacing: '1',
+	},
+
   };
