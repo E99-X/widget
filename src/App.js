@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ConnectButton, useCurrentAccount, useDisconnectWallet } from "@mysten/dapp-kit";
-import { PACKAGE_ID } from "./constants/sale";  // Only import PACKAGE_ID as a constant
+import { PACKAGE_ID } from "./constants/sale";  
 import Stat from "./components/Stat";
 import AdminWidget from "./components/AdminWidget";
 import BuyWidget from "./components/BuyWidget";
@@ -10,11 +10,11 @@ import { useSaleSummary } from "./hooks/useSaleSummary";
 import { useSaleStage } from './hooks/useSaleStage';
 
 const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId }) => {
-  // Default color settings (in case the user doesn't provide them)
+
   const {
-    primaryColor = "#a19d9d",  // Default primary color
-    bgrColor = "#151516",      // Default background color
-    accentColor = "#f8df00"    // Default accent color
+    primaryColor = "#a19d9d",  
+    bgrColor = "#151516",    
+    accentColor = "#f8df00"  
   } = customColors;
 
   const account = useCurrentAccount();
@@ -24,7 +24,6 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Check if the current account is an admin
   useEffect(() => {
     if (account && saleSummary?.admin) {
       const adminAddr = saleSummary.admin;
@@ -36,11 +35,11 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
     disconnect();
   };
 
-  // Apply dynamic color styles to the root
+
   useEffect(() => {
     const primaryRgb = hexToRgb(primaryColor);
     if (primaryRgb) {
-      // Dynamically set CSS variables based on passed custom colors
+
       document.documentElement.style.setProperty('--primary-color-r', primaryRgb.r);
       document.documentElement.style.setProperty('--primary-color-g', primaryRgb.g);
       document.documentElement.style.setProperty('--primary-color-b', primaryRgb.b);
@@ -50,7 +49,6 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
     document.documentElement.style.setProperty('--accent-color', accentColor);
   }, [primaryColor, bgrColor, accentColor]);
 
-  // Function to convert hex to rgb
   const hexToRgb = (hex) => {
     const result = /^#([0-9a-f]{6}|[0-9a-f]{3})$/i.exec(hex);
     if (!result) return null;
@@ -71,23 +69,23 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
       <div className="w-100">
         {isAdmin ? (
           <AdminWidget
-            saleId={saleId}         // Now using dynamic `saleId` from user input
-            packageId={PACKAGE_ID}  // Constant import for `PACKAGE_ID`
-            adminCapId={adminCapId} // Dynamic `adminCapId` from user input
-            tokenType={tokenType}   // Dynamic `tokenType` from user input
+            saleId={saleId}     
+            packageId={PACKAGE_ID}  
+            adminCapId={adminCapId} 
+            tokenType={tokenType}  
             summary={saleSummary}
             stageView={stageView}
             customColors={{ primaryColor, bgrColor, accentColor }}
           />
         ) : (
           <BuyWidget
-            saleId={saleId}         // Using dynamic `saleId` here
-            package_id={PACKAGE_ID} // Constant `PACKAGE_ID` here
-            tokenType={tokenType}   // Dynamic `tokenType` from user input
+            saleId={saleId}    
+            package_id={PACKAGE_ID} 
+            tokenType={tokenType}
             stageView={stageView}
             customColors={{ primaryColor, bgrColor, accentColor }}
             account={account}
-            avatarUrl={avatarUrl}   // Passing dynamic `avatarUrl` here
+            avatarUrl={avatarUrl} 
           />
         )}
 
@@ -95,17 +93,14 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
           <Button
             label="Disconnect"
             onClick={handleDisconnect}
-            className="button secondary"
-            style={{
-              color: primaryColor,        // Inline dynamic text color
-            }} 
+            style="secondary"
           />
         ) : (
           <ConnectButton 
           className="button secondary"
           style={{
             color: primaryColor, 
-            padding: "var(--button-padding)",      // Inline dynamic text color
+            padding: "var(--button-padding)",  
           }} 
           />
         )}
