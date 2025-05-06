@@ -52,6 +52,8 @@ export default function initTokenSaleWidget(config = {}) {
             autoConnect
             theme={myTheme}
             className="outlined"
+            slushWallet={{ name: 'TokenSaleWidget' }}
+            stashedWallet={{ name: 'TokenSaleWidget' }}
           >
             <App
               customColors={customColors || {}}
@@ -81,6 +83,8 @@ if (rootEl) {
             autoConnect
             theme={myTheme}
             className="outlined"
+            slushWallet={{ name: 'TokenSaleWidget' }}
+            stashedWallet={{ name: 'TokenSaleWidget' }}
           >
             <App />
           </WalletProvider>

@@ -39,5 +39,6 @@ module.exports = {
     static: { directory: path.join(__dirname, 'dist') },
     port: 3001,
     headers: { 'Access-Control-Allow-Origin': '*' },
+    allowedHosts: "all", 
   },
 };
