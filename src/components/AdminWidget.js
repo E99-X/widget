@@ -47,7 +47,7 @@ const AdminWidget = ({
               <p className="margin-top text-primary" style={{color: customColors.primaryColor}}>Start Token Sale Immediately</p>
               <Button
                 label={isSubmitting ? "Launching…" : "Start Sale"}
-                style="primary"
+                styling="primary"
                 onClick={advanceSale}
                 disabled={isSubmitting}
                 customColors={customColors}
@@ -66,7 +66,7 @@ const AdminWidget = ({
               <p className="margin-top" style={{color: customColors.primaryColor}}>Start new Stage when ready</p>
               <Button
                 label={isSubmitting ? "Launching…" : `Start Stage ${stageNumber + 1}`}
-                style="primary"
+                styling="primary"
                 onClick={advanceSale}
                 disabled={isSubmitting}
                 customColors={customColors}

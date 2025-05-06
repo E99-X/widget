@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
-const Button = ({ label, style, onClick, disabled, customColors }) => {
+const Button = ({ label, styling, onClick, disabled, customColors }) => {
   const [clicked, setClicked] = useState(false);
 
+  const variant = styling;
   const handleClick = () => {
     if (disabled) return;
     setClicked(true);
@@ -16,9 +17,15 @@ const Button = ({ label, style, onClick, disabled, customColors }) => {
 
   return (
     <button
-      className={`button ${style} ${clicked ? "reset" : ""}`} 
+      label={label}
+      className={styling}
       onClick={handleClick}
       disabled={disabled}
+      style={{
+        color: variant === "secondary"
+          ? customColors.primaryColor
+          : customColors.bgrColor
+      }}
     >
       {label}
     </button>
