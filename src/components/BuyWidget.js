@@ -19,17 +19,15 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
 
   useEffect(() => {
     const extractCoinName = (tokenType) => {
-      // Check if tokenType is valid and not undefined before calling split
       if (tokenType && typeof tokenType === "string") {
         const parts = tokenType.split("::");
-        return parts.length > 2 ? parts[2] : "Huh?!";  // Get the coin name, or use fallback
+        return parts.length > 2 ? parts[2] : "Huh?!";
       }
-      return "Huh?!";  // Default fallback if tokenType is invalid
+      return "Huh?!";
     };
     
-    // Set coin name based on tokenType (fallback to default if undefined or invalid)
     setCoinName(extractCoinName(tokenType));
-  }, [tokenType]);  // Ensure useEffect runs when tokenType changes
+  }, [tokenType]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -43,7 +41,6 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
         <img src={avatarUrl || symbol} alt="Token" />
       </div>
 
-      {/* Input field with dynamic border color */}
       <input
         type="number"
         value={tokenAmount}
@@ -56,7 +53,7 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
 
       <p className="stretch">
         <span>You pay:</span>{" "}
-        <span className="text-primary">{suiAmount > 0 ? suiAmount.toFixed(2) : "0.00"} SUI</span>
+        <span style={{color: customColors.accentColor}}>{suiAmount > 0 ? suiAmount.toFixed(2) : "0.00"} SUI</span>
       </p>
 
       <Button
@@ -65,6 +62,7 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
         onClick={handleBuyTokens}
         disabled={!account || !!inputError || !tokenAmount || isSubmitting}
         customColors={customColors}
+   
       />
     </div>
   );

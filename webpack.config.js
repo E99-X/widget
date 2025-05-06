@@ -1,4 +1,3 @@
-// webpack.config.js
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -9,7 +8,7 @@ module.exports = {
     filename: 'widget.js',
     library: 'TokenSaleWidget',
     libraryTarget: 'window',
-    libraryExport: 'default',   // ← exposes your default export as window.TokenSaleWidget
+    libraryExport: 'default', 
   },
   module: {
     rules: [
@@ -18,7 +17,7 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          // babel-loader will now pick up babel.config.json automatically
+          
         },
       },
       { test: /\.css$/, use: ['style-loader','css-loader'] },
@@ -33,7 +32,7 @@ module.exports = {
     })
   ],
   resolve: { extensions: ['.js','.jsx'] },
-  mode: 'development',     // switch to 'production' when ready
+  mode: 'development', 
   devtool: 'source-map',
   devServer: {
     static: { directory: path.join(__dirname, 'dist') },

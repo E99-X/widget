@@ -14,19 +14,17 @@ import {
 import { getFullnodeUrl } from "@mysten/sui/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// Prepare shared clients/networks
 const { networkConfig } = createNetworkConfig({
   testnet: { url: getFullnodeUrl("testnet") },
 });
 const queryClient = new QueryClient();
 
-// 1) The embeddable widget initializer
 export default function initTokenSaleWidget(config = {}) {
   const {
     containerId,
-    saleId,
     customColors,
     avatarUrl,
+    saleId,
     tokenType,
     adminCapId,
   } = config;
@@ -69,7 +67,6 @@ export default function initTokenSaleWidget(config = {}) {
   );
 }
 
-// 2) Standalone (CRA) mount only if there's a <div id="root">
 const rootEl = document.getElementById("root");
 if (rootEl) {
   ReactDOM.createRoot(rootEl).render(

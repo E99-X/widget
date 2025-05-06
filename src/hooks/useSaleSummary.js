@@ -32,7 +32,7 @@ export function useSaleSummary(saleId) {
       else saleState = "Unknown State";
     }
 
-    const finMode = f.config?.fields?.final_mode?.variant; // Properly accessing variant
+    const finMode = f.config?.fields?.final_mode?.variant; 
 let finModeText = "Unknown";
 if (finMode) {
   if (finMode === 'JoinToPool') finModeText = "Join Pool";

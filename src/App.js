@@ -95,10 +95,19 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
           <Button
             label="Disconnect"
             onClick={handleDisconnect}
-            style="button secondary"
+            className="button secondary"
+            style={{
+              color: primaryColor,        // Inline dynamic text color
+            }} 
           />
         ) : (
-          <ConnectButton className="button secondary" />
+          <ConnectButton 
+          className="button secondary"
+          style={{
+            color: primaryColor, 
+            padding: "var(--button-padding)",      // Inline dynamic text color
+          }} 
+          />
         )}
       </div>
 
@@ -116,7 +125,16 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
       <div className="footer w-100 text-center">
         <p>© 2025 EggX. All rights reserved.</p>
       </div>
+      <AdminWidget
+               saleId={saleId}         // Now using dynamic `saleId` from user input
+               packageId={PACKAGE_ID}  // Constant import for `PACKAGE_ID`
+               adminCapId={adminCapId} // Dynamic `adminCapId` from user input
+               tokenType={tokenType}   // Dynamic `tokenType` from user input
+               summary={saleSummary}
+               stageView={stageView}
+               customColors={{ primaryColor, bgrColor, accentColor }}/>
     </div>
+  
   );
 };
 
