@@ -1,45 +1,43 @@
+// webpack.config.js
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',  // Your React entry file
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'widget.js',  // Output the bundled widget as widget.js
-    libraryTarget: 'umd',   // Make the module globally accessible
-    globalObject: 'this',   // Ensure compatibility with various environments
+    filename: 'widget.js',
+    library: 'TokenSaleWidget',
+    libraryTarget: 'window',
+    libraryExport: 'default',   // ← exposes your default export as window.TokenSaleWidget
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,  // Match .js and .jsx files
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',  // Use Babel to transpile JS/JSX files
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],  // React preset for JSX
-          },
+          loader: 'babel-loader',
+          // babel-loader will now pick up babel.config.json automatically
         },
       },
-      {
-        test: /\.css$/,  // Match .css files
-        use: ['style-loader', 'css-loader'],  // Inject CSS into the DOM using style-loader
-      },
-      {
-        test: /\.svg$/,  // Match .svg files
-        use: ['file-loader'],  // Use file-loader to process SVG files
-      },
+      { test: /\.css$/, use: ['style-loader','css-loader'] },
+      { test: /\.svg$/, use: ['file-loader'] },
     ],
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],  // Resolve .js and .jsx file extensions
-  },
-  mode: 'production',  // Production mode for optimized build
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/index.html', to: 'index.html' }
+      ]
+    })
+  ],
+  resolve: { extensions: ['.js','.jsx'] },
+  mode: 'development',     // switch to 'production' when ready
+  devtool: 'source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),  // Serve the dist directory where widget.js is located
-    port: 3001,  // Choose a port (can be 3000 or any other unused port)
-    hot: true,  // Enable hot reloading for development
-    headers: {
-      'Access-Control-Allow-Origin': '*',  // Enable CORS for external access
-    },
+    static: { directory: path.join(__dirname, 'dist') },
+    port: 3001,
+    headers: { 'Access-Control-Allow-Origin': '*' },
   },
 };
