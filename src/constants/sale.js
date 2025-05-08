@@ -1,7 +1,0 @@
-// CONSTANTS
-export const PACKAGE_ID = '0x34218f8b8ed94c0c89bdf312188a612a9f9b2b4db6c70ff9c85e1ff52ea973c0';
-export const AUTO_PACKAGE_ID = '0xd884f7edb4b8b2fcacccc256673901d095873471bc95c1b1e9f9f0748ce28af2';
-export const AUTOPILOT = '0xb330c1f81a15bbf76b8c41906caa42808229be75d959b03335de5dfa27e0d5ad';
-
-
-

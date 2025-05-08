@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { useTransaction } from "./useTransaction";
-import { floatToFixed, isValidPositiveNumber, getMaxInputFloat } from '../utils/formatter';
-import { Transaction } from '@mysten/sui/transactions';
+import {
+  floatToFixed,
+  isValidPositiveNumber,
+  getMaxInputFloat,
+} from "../utils/formatter";
+import { Transaction } from "@mysten/sui/transactions";
 
 export const useBuyTokens = ({ saleId, package_id, tokenType, stageView }) => {
   const { executeTransaction, isSubmitting } = useTransaction(
@@ -12,7 +16,9 @@ export const useBuyTokens = ({ saleId, package_id, tokenType, stageView }) => {
     },
     (error) => {
       console.error("Transaction failed:", error);
-      alert("An error occurred during the purchase. Make sure your wallet is connected");
+      alert(
+        "An error occurred during the purchase. Make sure your wallet is connected"
+      );
     }
   );
   const [tokenAmount, setTokenAmount] = useState("");
@@ -66,9 +72,7 @@ export const useBuyTokens = ({ saleId, package_id, tokenType, stageView }) => {
     const tx = new Transaction();
     const amountInMist = BigInt(floatToFixed(tokenAmount));
     const totalCostInMist = floatToFixed(suiAmount);
-    const [paymentCoin] = tx.splitCoins(tx.gas, [
-      tx.pure.u64(totalCostInMist),
-    ]);
+    const [paymentCoin] = tx.splitCoins(tx.gas, [tx.pure.u64(totalCostInMist)]);
 
     tx.moveCall({
       target: `${package_id}::sale_utils::buy_tokens`,

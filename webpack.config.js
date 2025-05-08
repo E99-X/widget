@@ -1,14 +1,14 @@
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'widget.js',
-    library: 'TokenSaleWidget',
-    libraryTarget: 'window',
-    libraryExport: 'default', 
+    path: path.resolve(__dirname, "dist"),
+    filename: "widget.js",
+    library: "TokenSaleWidget",
+    libraryTarget: "window",
+    libraryExport: "default",
   },
   module: {
     rules: [
@@ -16,28 +16,27 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          
+          loader: "babel-loader",
         },
       },
-      { test: /\.css$/, use: ['style-loader','css-loader'] },
-      { test: /\.svg$/, use: ['file-loader'] },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.svg$/, use: ["file-loader"] },
     ],
   },
   plugins: [
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'public/index.html', to: 'index.html' }
-      ]
-    })
+      patterns: [{ from: "public/index.html", to: "index.html" }],
+    }),
   ],
-  resolve: { extensions: ['.js','.jsx'] },
-  mode: 'development', 
-  devtool: 'source-map',
+  resolve: { extensions: [".js", ".jsx"] },
+  mode: "development",
+  devtool: "source-map",
   devServer: {
-    static: { directory: path.join(__dirname, 'dist') },
+    static: { directory: path.join(__dirname, "dist") },
     port: 3001,
-    headers: { 'Access-Control-Allow-Origin': '*' },
-    allowedHosts: "all", 
+    headers: { "Access-Control-Allow-Origin": "*" },
+    allowedHosts: "all",
+    watchFiles: ["src/**/*"], // Watch for changes in the src folder
+    hot: true, // Enable hot module replacement
   },
 };

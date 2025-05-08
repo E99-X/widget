@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 
 const Countdown = ({ summary, stageView, customColors }) => {
   const [timeLeft, setTimeLeft] = useState({
-    days: 0, hours: 0, minutes: 0, seconds: 0
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   });
 
   useEffect(() => {
@@ -33,18 +36,30 @@ const Countdown = ({ summary, stageView, customColors }) => {
     return () => clearInterval(timer);
   }, [stageView?.endMs]);
 
-    if (!summary || !summary.finModeText) {
-      return <div>Loading...</div>; 
-    }
+  if (!summary || !summary.finModeText) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="text-center">
-      <p className="">{summary.finModeText == "Join Pool" ? 'Next Stage starts in:' : 'Burning in:'}</p>
-      <div className="heading text-primary margin-top">
-        <span style={{color: customColors.primaryColor}}>{String(timeLeft.days).padStart(2, "0")}d :</span>{" "}
-        <span style={{color: customColors.primaryColor}}>{String(timeLeft.hours).padStart(2, "0")}h :</span>{" "}
-        <span style={{color: customColors.primaryColor}}>{String(timeLeft.minutes).padStart(2, "0")}m :</span>{" "}
-        <span style={{color: customColors.primaryColor}}>{String(timeLeft.seconds).padStart(2, "0")}s</span>
+      <p className="">
+        {summary.finModeText == "Join Pool"
+          ? "Next Stage starts in:"
+          : "Burning in:"}
+      </p>
+      <div className="countdownText text-primary margin-top">
+        <span style={{ color: customColors.primaryColor }}>
+          {String(timeLeft.days).padStart(2, "0")}d :
+        </span>{" "}
+        <span style={{ color: customColors.primaryColor }}>
+          {String(timeLeft.hours).padStart(2, "0")}h :
+        </span>{" "}
+        <span style={{ color: customColors.primaryColor }}>
+          {String(timeLeft.minutes).padStart(2, "0")}m :
+        </span>{" "}
+        <span style={{ color: customColors.primaryColor }}>
+          {String(timeLeft.seconds).padStart(2, "0")}s
+        </span>
       </div>
     </div>
   );

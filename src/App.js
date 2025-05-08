@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 import { ConnectButton, useCurrentAccount, useDisconnectWallet } from "@mysten/dapp-kit";
-import { PACKAGE_ID } from "./constants/sale";  // Only import PACKAGE_ID as a constant
+import { PACKAGE_ID } from "./constants/contract";
 import Stat from "./components/Stat";
 import AdminWidget from "./components/AdminWidget";
 import BuyWidget from "./components/BuyWidget";
@@ -10,11 +10,11 @@ import { useSaleSummary } from "./hooks/useSaleSummary";
 import { useSaleStage } from './hooks/useSaleStage';
 
 const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId }) => {
-  // Default color settings (in case the user doesn't provide them)
+  const rootRef = useRef(null);
   const {
-    primaryColor = "#a19d9d",  // Default primary color
-    bgrColor = "#151516",      // Default background color
-    accentColor = "#f8df00"    // Default accent color
+    primaryColor = "#a19d9d", 
+    bgrColor = "#151516",   
+    accentColor = "#f8df00" 
   } = customColors;
 
   const account = useCurrentAccount();
@@ -24,7 +24,6 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Check if the current account is an admin
   useEffect(() => {
     if (account && saleSummary?.admin) {
       const adminAddr = saleSummary.admin;
@@ -36,32 +35,36 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
     disconnect();
   };
 
-  // Apply dynamic color styles to the root
   useEffect(() => {
-    const primaryRgb = hexToRgb(primaryColor);
-    if (primaryRgb) {
-      // Dynamically set CSS variables based on passed custom colors
-      document.documentElement.style.setProperty('--primary-color-r', primaryRgb.r);
-      document.documentElement.style.setProperty('--primary-color-g', primaryRgb.g);
-      document.documentElement.style.setProperty('--primary-color-b', primaryRgb.b);
-    }
+    const el = rootRef.current;
+    if (!el) return;
 
-    document.documentElement.style.setProperty('--bgr-color', bgrColor);
-    document.documentElement.style.setProperty('--accent-color', accentColor);
+    el.style.setProperty("--primary-color", primaryColor);
+    el.style.setProperty("--bgr-color", bgrColor);
+    el.style.setProperty("--accent-color", accentColor);
+
+    const rgb = hexToRgb(primaryColor);
+    if (rgb) {
+      el.style.setProperty("--primary-color-r", rgb.r);
+      el.style.setProperty("--primary-color-g", rgb.g);
+      el.style.setProperty("--primary-color-b", rgb.b);
+    }
   }, [primaryColor, bgrColor, accentColor]);
 
-  // Function to convert hex to rgb
   const hexToRgb = (hex) => {
-    const result = /^#([0-9a-f]{6}|[0-9a-f]{3})$/i.exec(hex);
-    if (!result) return null;
-    let r = parseInt(result[1].substring(0, 2), 16);
-    let g = parseInt(result[1].substring(2, 4), 16);
-    let b = parseInt(result[1].substring(4, 6), 16);
+    const m = /^#([0-9a-f]{6}|[0-9a-f]{3})$/i.exec(hex);
+    if (!m) return null;
+    const full = m[1].length === 3
+      ? m[1].split("").map((c) => c + c).join("")
+      : m[1];
+    const r = parseInt(full.slice(0, 2), 16);
+    const g = parseInt(full.slice(2, 4), 16);
+    const b = parseInt(full.slice(4, 6), 16);
     return { r, g, b };
   };
 
   return (
-    <div className="container">
+    <div ref={rootRef} className="eggxWidgetRoot widgetContainerImg">
       <Countdown
         summary={saleSummary}
         stageView={stageView}
@@ -71,23 +74,23 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
       <div className="w-100">
         {isAdmin ? (
           <AdminWidget
-            saleId={saleId}         // Now using dynamic `saleId` from user input
-            packageId={PACKAGE_ID}  // Constant import for `PACKAGE_ID`
-            adminCapId={adminCapId} // Dynamic `adminCapId` from user input
-            tokenType={tokenType}   // Dynamic `tokenType` from user input
+            saleId={saleId}         
+            packageId={PACKAGE_ID}  
+            adminCapId={adminCapId} 
+            tokenType={tokenType}  
             summary={saleSummary}
             stageView={stageView}
             customColors={{ primaryColor, bgrColor, accentColor }}
           />
         ) : (
           <BuyWidget
-            saleId={saleId}         // Using dynamic `saleId` here
-            package_id={PACKAGE_ID} // Constant `PACKAGE_ID` here
-            tokenType={tokenType}   // Dynamic `tokenType` from user input
+            saleId={saleId}        
+            package_id={PACKAGE_ID} 
+            tokenType={tokenType}  
             stageView={stageView}
             customColors={{ primaryColor, bgrColor, accentColor }}
             account={account}
-            avatarUrl={avatarUrl}   // Passing dynamic `avatarUrl` here
+            avatarUrl={avatarUrl} 
           />
         )}
 
@@ -104,7 +107,7 @@ const App = ({ customColors = {}, avatarUrl = "", saleId, tokenType, adminCapId 
           className="button secondary"
           style={{
             color: primaryColor, 
-            padding: "var(--button-padding)",      // Inline dynamic text color
+            padding: "var(--button-padding)", 
           }} 
           />
         )}

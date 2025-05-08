@@ -6,7 +6,7 @@ export const useTransaction = (onSuccess, onError) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const executeTransaction = (tx) => {
-    setIsSubmitting(true); 
+    setIsSubmitting(true);
 
     signAndExecuteTransaction(
       { transaction: tx },

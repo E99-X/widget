@@ -1,9 +1,9 @@
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { isValidSuiObjectId } from '@mysten/sui/utils';
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { isValidSuiObjectId } from "@mysten/sui/utils";
 
 export function useAutopilotStatus(parentId, saleId) {
   if (!parentId || !saleId || !isValidSuiObjectId(saleId)) {
-    console.warn('useAutopilotStatus: invalid parentId or saleId', {
+    console.warn("useAutopilotStatus: invalid parentId or saleId", {
       parentId,
       saleId,
     });
@@ -11,17 +11,17 @@ export function useAutopilotStatus(parentId, saleId) {
       data: undefined,
       isPending: false,
       isError: true,
-      error: new Error('Invalid parentId or saleId'),
+      error: new Error("Invalid parentId or saleId"),
     };
   }
 
   const { data, isPending, isError, error } = useSuiClientQuery(
-    'getDynamicFieldObject',
+    "getDynamicFieldObject",
     {
       parentId,
       name: {
-        type: '0x2::object::ID',
-        value: saleId, 
+        type: "0x2::object::ID",
+        value: saleId,
       },
     },
     {
@@ -30,6 +30,6 @@ export function useAutopilotStatus(parentId, saleId) {
     }
   );
 
-  console.log('Autopilot dynamic field result:', data);
+  console.log("Autopilot dynamic field result:", data);
   return { data, isPending, isError, error };
 }
