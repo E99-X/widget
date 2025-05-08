@@ -1,11 +1,16 @@
 import React from "react";
 
-const Toggle = ({ isEnabled = false, onToggle = () => {}, disabled = false, customColors }) => {
+const Toggle = ({
+  isEnabled = false,
+  onToggle = () => {},
+  disabled = false,
+  customColors,
+}) => {
   return (
     <label className="switch">
       <input
         type="checkbox"
-        checked={Boolean(isEnabled)} 
+        checked={Boolean(isEnabled)}
         onChange={onToggle}
         disabled={disabled}
       />

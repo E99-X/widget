@@ -1,5 +1,5 @@
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { fixedToFloat } from '../utils/formatter';
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { fixedToFloat } from "../utils/formatter";
 
 export function useSaleStage(saleId) {
   const {
@@ -8,7 +8,7 @@ export function useSaleStage(saleId) {
     isError,
     error,
   } = useSuiClientQuery(
-    'getObject',
+    "getObject",
     { id: saleId, options: { showContent: true } },
     { refetchInterval: 10_000 }
   );
@@ -22,10 +22,10 @@ export function useSaleStage(saleId) {
     if (saleState === 0) {
       stageView = null;
     } else {
-      const stages = f.stages ? f.stages.map(s => s.fields) : [];
+      const stages = f.stages ? f.stages.map((s) => s.fields) : [];
 
       if (stages.length > 0) {
-        const last = stages[stages.length - 1]; 
+        const last = stages[stages.length - 1];
 
         stageView = {
           stageNumber: Number(last.stage_number),

@@ -22,9 +22,10 @@ const Button = ({ label, styling, onClick, disabled, customColors }) => {
       onClick={handleClick}
       disabled={disabled}
       style={{
-        color: variant === "secondary"
-          ? customColors.primaryColor
-          : customColors.bgrColor
+        color:
+          variant === "secondary"
+            ? customColors.primaryColor
+            : customColors.bgrColor,
       }}
     >
       {label}

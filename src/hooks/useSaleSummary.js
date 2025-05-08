@@ -1,5 +1,5 @@
-import { useSuiClientQuery } from '@mysten/dapp-kit';
-import { fixedToFloat } from '../utils/formatter';
+import { useSuiClientQuery } from "@mysten/dapp-kit";
+import { fixedToFloat } from "../utils/formatter";
 
 export function useSaleSummary(saleId) {
   const {
@@ -8,7 +8,7 @@ export function useSaleSummary(saleId) {
     isError,
     error,
   } = useSuiClientQuery(
-    'getObject',
+    "getObject",
     { id: saleId, options: { showContent: true } },
     { refetchInterval: 10_000 }
   );
@@ -18,9 +18,7 @@ export function useSaleSummary(saleId) {
   if (objResp?.data?.content?.fields) {
     const f = objResp.data.content.fields;
 
-    const stages = Array.isArray(f.stages)
-      ? f.stages.map(s => s.fields)
-      : [];
+    const stages = Array.isArray(f.stages) ? f.stages.map((s) => s.fields) : [];
 
     let saleState = "Unknown";
     const variant = f.state?.variant;
@@ -32,12 +30,12 @@ export function useSaleSummary(saleId) {
       else saleState = "Unknown State";
     }
 
-    const finMode = f.config?.fields?.final_mode?.variant; 
-let finModeText = "Unknown";
-if (finMode) {
-  if (finMode === 'JoinToPool') finModeText = "Join Pool";
-  else if (finMode === "Burn") finModeText = "Burning Mode";
-}
+    const finMode = f.config?.fields?.final_mode?.variant;
+    let finModeText = "Unknown";
+    if (finMode) {
+      if (finMode === "JoinToPool") finModeText = "Join Pool";
+      else if (finMode === "Burn") finModeText = "Burning Mode";
+    }
 
     console.log(finMode);
     console.log(finModeText);
@@ -71,4 +69,3 @@ if (finMode) {
     error,
   };
 }
-

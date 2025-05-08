@@ -1,7 +1,7 @@
 // useAutopilotToggle.js
 import { useState, useEffect } from "react";
 import { useTransaction } from "./useTransaction";
-import { AUTOPILOT, AUTO_PACKAGE_ID } from "../constants/sale";
+import { AUTOPILOT, AUTO_PACKAGE_ID } from "../constants/contract";
 import { Transaction } from "@mysten/sui/transactions";
 import { useAutopilotStatus } from "./useAutopilotStatus";
 
@@ -11,7 +11,7 @@ export const useAutopilotToggle = (saleId, adminCapId, tokenType) => {
 
   const { executeTransaction, isSubmitting } = useTransaction(
     (result) => {
-      setIsAutopilotEnabled((prevState) => !prevState); 
+      setIsAutopilotEnabled((prevState) => !prevState);
     },
     (error) => {
       console.error("Error occurred during autopilot toggle:", error);

@@ -45,4 +45,3 @@ export function getMaxTokenAmount(priceFixed) {
 export function getMaxInputFloat() {
   return Number(MAX_U64 / DECIMALS);
 }
- 

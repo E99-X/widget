@@ -16,11 +16,7 @@ export function useAdvanceSale({ packageId, saleId, adminCapId, tokenType }) {
     const tx = new Transaction();
     tx.moveCall({
       target: `${packageId}::sale_utils::advance_sale`,
-      arguments: [
-        tx.object(saleId),
-        tx.object(adminCapId),
-        tx.object.clock(),
-      ],
+      arguments: [tx.object(saleId), tx.object(adminCapId), tx.object.clock()],
       typeArguments: [tokenType],
     });
 

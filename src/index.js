@@ -30,28 +30,32 @@ export default function initTokenSaleWidget(config = {}) {
   } = config;
 
   if (!containerId) {
-    console.error("Container ID is required");
+    console.error("containerId is required");
+    return;
+  }
+
+  const hostContainer = document.getElementById(containerId);
+  if (!hostContainer) {
+    console.error(`No element found with id="${containerId}"`);
     return;
   }
 
   const mountEl = document.createElement("div");
-  ;(document.getElementById(containerId) || document.body).appendChild(
-    mountEl
-  );
+  mountEl.classList.add("eggxWidgetRoot");
+
+  // Append the widget inside the target container
+  hostContainer.appendChild(mountEl);
 
   ReactDOM.createRoot(mountEl).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <SuiClientProvider
-          networks={networkConfig}
-          defaultNetwork="testnet"
-        >
+        <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
           <WalletProvider
             autoConnect
             theme={myTheme}
             className="outlined"
-            slushWallet={{ name: 'TokenSaleWidget' }}
-            stashedWallet={{ name: 'TokenSaleWidget' }}
+            slushWallet={{ name: "TokenSaleWidget" }}
+            stashedWallet={{ name: "TokenSaleWidget" }}
           >
             <App
               customColors={customColors || {}}
@@ -72,18 +76,17 @@ if (rootEl) {
   ReactDOM.createRoot(rootEl).render(
     <React.StrictMode>
       <QueryClientProvider client={queryClient}>
-        <SuiClientProvider
-          networks={networkConfig}
-          defaultNetwork="testnet"
-        >
+        <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
           <WalletProvider
             autoConnect
             theme={myTheme}
             className="outlined"
-            slushWallet={{ name: 'TokenSaleWidget' }}
-            stashedWallet={{ name: 'TokenSaleWidget' }}
+            slushWallet={{ name: "TokenSaleWidget" }}
+            stashedWallet={{ name: "TokenSaleWidget" }}
           >
-            <App />
+            <div className="eggxWidgetRoot">
+              <App />
+            </div>
           </WalletProvider>
         </SuiClientProvider>
       </QueryClientProvider>

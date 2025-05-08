@@ -3,7 +3,15 @@ import Button from "./Button";
 import { useBuyTokens } from "../hooks/useBuyTokens";
 import symbol from "../assets/symbol.svg";
 
-const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, account, avatarUrl }) => {
+const BuyWidget = ({
+  saleId,
+  package_id,
+  tokenType,
+  stageView,
+  customColors,
+  account,
+  avatarUrl,
+}) => {
   const [coinName, setCoinName] = useState("Huh?!");
 
   const {
@@ -25,7 +33,7 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
       }
       return "Huh?!";
     };
-    
+
     setCoinName(extractCoinName(tokenType));
   }, [tokenType]);
 
@@ -53,7 +61,9 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
 
       <p className="stretch">
         <span>You pay:</span>{" "}
-        <span style={{color: customColors.accentColor}}>{suiAmount > 0 ? suiAmount.toFixed(2) : "0.00"} SUI</span>
+        <span style={{ color: customColors.accentColor }}>
+          {suiAmount > 0 ? suiAmount.toFixed(2) : "0.00"} SUI
+        </span>
       </p>
 
       <Button
@@ -62,7 +72,6 @@ const BuyWidget = ({ saleId, package_id, tokenType, stageView, customColors, acc
         onClick={handleBuyTokens}
         disabled={!account || !!inputError || !tokenAmount || isSubmitting}
         customColors={customColors}
-   
       />
     </div>
   );
