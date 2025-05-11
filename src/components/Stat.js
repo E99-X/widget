@@ -24,32 +24,32 @@ const Stat = ({
     return <p className="text-center">No sale summary or stage available</p>;
 
   return (
-    <section className="w-100 margin-top">
-      <div className="stretch">
+    <section className="w-100 m-top-sm">
+      <div className="stretch m-btm-sm">
         <span>Stage:</span>
         <span
           style={{ color: customColors.primaryColor }}
         >{`${stageView.stageNumber}/${summary.stageCount}`}</span>
       </div>
-      <div className="stretch">
+      <div className="stretch m-btm-sm">
         <span>Available:</span>
         <span style={{ color: customColors.primaryColor }}>
           {stageView.tokensLeft}
         </span>
       </div>
-      <div className="stretch margin-top">
+      <div className="stretch m-btm-sm">
         <span>Max Supply:</span>
         <span style={{ color: customColors.primaryColor }}>
           {summary.hardCap}
         </span>
       </div>
-      <div className="stretch">
+      <div className="stretch m-btm-sm">
         <span>Reserve:</span>
         <span
           style={{ color: customColors.primaryColor }}
         >{`${summary.reserve}%`}</span>
       </div>
-      <div className="stretch">
+      <div className="stretch m-btm-sm">
         <span>{summary.finModeText == "Join Pool" ? "Sold:" : "Burned:"}</span>
         <span style={{ color: customColors.primaryColor }}>
           {summary.finModeText == "Join Pool"

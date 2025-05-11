@@ -5,8 +5,8 @@ import symbol from "../assets/symbol.svg";
 
 const BuyWidget = ({
   saleId,
-  package_id,
   tokenType,
+  package_id,
   stageView,
   customColors,
   account,
@@ -45,7 +45,7 @@ const BuyWidget = ({
 
   return (
     <div className="w-100">
-      <div className="img-container w-100">
+      <div className="img-container">
         <img src={avatarUrl || symbol} alt="Token" />
       </div>
 
@@ -59,7 +59,7 @@ const BuyWidget = ({
 
       {inputError && <p className="">{inputError}</p>}
 
-      <p className="stretch">
+      <p className="stretch m-btm-md">
         <span>You pay:</span>{" "}
         <span style={{ color: customColors.accentColor }}>
           {suiAmount > 0 ? suiAmount.toFixed(2) : "0.00"} SUI

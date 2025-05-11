@@ -9,11 +9,12 @@ export function useSaleSummary(saleId) {
     error,
   } = useSuiClientQuery(
     "getObject",
-    { id: saleId, options: { showContent: true } },
+    { id: saleId, options: { showContent: true, showType: true } },
     { refetchInterval: 10_000 }
   );
 
   let summary = null;
+  let tokenType = null;
 
   if (objResp?.data?.content?.fields) {
     const f = objResp.data.content.fields;
@@ -37,12 +38,23 @@ export function useSaleSummary(saleId) {
       else if (finMode === "Burn") finModeText = "Burning Mode";
     }
 
-    console.log(finMode);
-    console.log(finModeText);
+    const fullType = objResp.data.type;
+    console.log("🔍 Full type string:", fullType);
+
+    if (fullType) {
+      const match = fullType.match(/^.+<(.+)>$/);
+      if (match) {
+        tokenType = match[1];
+        console.log("✅ Extracted tokenType:", tokenType);
+      } else {
+        console.warn("❌ Could not extract tokenType from:", fullType);
+      }
+    }
 
     const admin = f.admin?.fields?.admin ?? "Unknown Admin";
 
     summary = {
+      tokenType,
       hardCap: fixedToFloat(f.config?.fields?.hard_cap ?? 0),
       admin,
       reserve: f.config?.fields?.reserve_percentage ?? 0,
@@ -57,9 +69,6 @@ export function useSaleSummary(saleId) {
       stageCount: Number(f.config?.fields?.number_of_stages ?? 0),
       finModeText,
     };
-
-    console.log("Sale State:", f.state);
-    console.log("FinMode:", f.config?.fields?.final_mode);
   }
 
   return {
