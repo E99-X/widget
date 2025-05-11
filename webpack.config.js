@@ -36,7 +36,7 @@ module.exports = {
     port: 3001,
     headers: { "Access-Control-Allow-Origin": "*" },
     allowedHosts: "all",
-    watchFiles: ["src/**/*"], // Watch for changes in the src folder
-    hot: true, // Enable hot module replacement
+    watchFiles: ["src/**/*"],
+    hot: true,
   },
 };

@@ -1,12 +1,25 @@
 .eggxWidgetRoot {
-  --primary-color: #a19d9d;
-  --bgr-color: #151516;
-  --accent-color: #f8df00;
+  --widget-primary-color: #d0cfcf;
+  --widget-bgr-color: "#151516";
+  --widget-accent-color: #f8df00;
+
+  --widget-font-soft-color: rgba(
+    var(--widget-primary-color-r),
+    var(--widget-primary-color-g),
+    var(--widget-primary-color-b),
+    0.6
+  );
+  --widget-font-hint-color: rgba(
+    var(--widget-primary-color-r),
+    var(--widget-primary-color-g),
+    var(--widget-primary-color-b),
+    0.3
+  );
 
   --font-family: "Arial", sans-serif;
   --transition-speed: 0.3s;
   --font-size-base: 16px;
-  --font-size-lg: 24px;
+  --font-size-lg: 32px;
   --line-height-base: 1.5;
 
   --border-radius: 8px;
@@ -16,31 +29,11 @@
   --gap-large: 32px;
   --button-padding: 8px 16px;
 
-  --secondary-opacity: 0.5;
-  --font-light-color: rgba(
-    var(--primary-color-r),
-    var(--primary-color-g),
-    var(--primary-color-b),
-    var(--secondary-opacity)
-  );
-  --font-dark-color: rgba(
-    var(--primary-color-r),
-    var(--primary-color-g),
-    var(--primary-color-b),
-    1
-  );
-  --secondary-text-color: rgba(
-    var(--primary-color-r),
-    var(--primary-color-g),
-    var(--primary-color-b),
-    var(--secondary-opacity)
-  );
-
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: var(--bgr-color);
-  color: var(--font-light-color);
+  background-color: var(--widget-bgr-light);
+  color: var(--widget-font-soft-color);
   font-family: var(--font-family);
   font-size: var(--font-size-base);
   box-sizing: border-box;
@@ -66,44 +59,53 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--bgr-color);
+  background-color: var(--widget-bgr-color);
 }
 
 .eggxWidgetRoot .img-container {
   display: flex;
+  margin: 0 var(--gap-large);
   justify-content: center;
   align-items: center;
-  padding: var(--gap-large);
+  padding: var(--gap-medium);
 }
 
 .eggxWidgetRoot button {
   appearance: none;
-  padding: var(--spacing-unit) var(--gap-medium) !important;
-  border-radius: var(--border-radius) !important;
-  font-weight: bold !important;
+  padding: var(--spacing-unit) var(--gap-medium);
+  border-radius: var(--border-radius);
+  font-weight: bold;
   cursor: pointer;
   transition: background-color var(--transition-speed) ease !important;
   width: 100% !important;
   font-size: 16px !important;
-  margin: var(--gap-small) 0 !important;
+  margin-bottom: var(--gap-small);
+  line-height: 1.3;
   border: none;
   outline: none;
   box-shadow: none !important;
 }
 
 .eggxWidgetRoot button.primary {
-  background-color: var(--accent-color);
-  border: 1px solid var(--accent-color) !important;
-  color: var(--bgr-color);
+  background: linear-gradient(
+    135deg,
+    var(--widget-accent-color),
+    color-mix(in srgb, var(--widget-accent-color) 70%, white)
+  );
+  box-shadow: 0 0 12px color-mix(in srgb, var(--widget-accent-color) 40%, black);
 }
 
 .eggxWidgetRoot button.secondary {
-  background-color: transparent !important;
-  border: 1px solid var(--secondary-text-color) !important;
+  background-color: var(--widget-bgr-light);
+  color: var(--widget-font-soft-color-color);
 }
 
-.eggxWidgetRoot button:hover {
+.eggxWidgetRoot button.primary:hover {
   filter: brightness(0.7);
+}
+
+.eggxWidgetRoot button.secondary:hover {
+  filter: brightness(1.3);
 }
 
 .eggxWidgetRoot button:active {
@@ -113,32 +115,31 @@ p {
 
 .eggxWidgetRoot input,
 .eggxWidgetRoot textarea {
-  background-color: transparent;
-  color: var(--primary-color);
-  padding: var(--spacing-unit) var(--gap-small);
-  width: 100%;
+  appearance: none;
+  all: unset;
+  background-color: var(--widget-bgr-dark);
+  color: var(--widget-primary-color);
+  padding: var(--spacing-unit) var(--gap-medium);
   font-size: var(--font-size-base);
-  margin-bottom: var(--gap-small);
+  margin-bottom: var(--gap-medium);
   border-radius: var(--border-radius);
-  border: 1px solid var(--secondary-text-color);
+  border: 1px solid var(--widget-font-hint-color);
+  box-sizing: border-box;
+  font-size: inherit;
+  line-height: 1.3;
+  width: 100%;
+  font-family: inherit;
 }
 
 .eggxWidgetRoot input:focus,
 .eggxWidgetRoot textarea:focus {
-  border-color: var(--accent-color);
-  outline: none;
-  box-shadow: 0 0 0 2px
-    rgba(
-      var(--primary-color-r),
-      var(--primary-color-g),
-      var(--primary-color-b),
-      0.3
-    );
+  border-color: var(--widget-accent-color);
+  outline: none !important;
 }
 
 .eggxWidgetRoot input::placeholder,
 .eggxWidgetRoot textarea::placeholder {
-  color: var(--font-dark-color);
+  color: var(--widget-font-hint-color);
 }
 
 .eggxWidgetRoot input[type="number"]::-webkit-outer-spin-button,
@@ -158,17 +159,30 @@ p {
   display: flex;
   justify-content: space-between;
 }
-.eggxWidgetRoot .margin-top {
+
+.eggxWidgetRoot .m-top-sm {
   margin-top: var(--gap-small);
 }
-.eggxWidgetRoot .margin-tb {
+.eggxWidgetRoot .m-top-md {
+  margin-top: var(--gap-medium);
+}
+
+.eggxWidgetRoot .m-btm-md {
+  margin-bottom: var(--gap-medium);
+}
+
+.eggxWidgetRoot .m-btm-sm {
+  margin-bottom: var(--gap-small);
+}
+
+.eggxWidgetRoot .my-sm {
   margin: var(--gap-small) 0;
 }
 .eggxWidgetRoot .text-primary {
-  color: var(--primary-color);
+  color: var(--widget-primary-color);
 }
 .eggxWidgetRoot .text-accent {
-  color: var(--accent-color);
+  color: var(--widget-accent-color);
 }
 .eggxWidgetRoot .text-center {
   text-align: center;
@@ -198,8 +212,8 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  border: 2px solid var(--font-dark-color);
-  background-color: var(--bgr-color);
+  border: 2px solid var(--widget-font-hint-color);
+  background-color: var(--widget-bgr-color);
   transition: 0.4s;
   border-radius: 34px;
 }
@@ -211,36 +225,38 @@ p {
   width: 24px;
   left: 3px;
   bottom: 3px;
-  background-color: var(--font-dark-color);
+  background-color: var(--widget-font-hint-color);
   border-radius: 50%;
   transition: 0.4s;
 }
 
 .eggxWidgetRoot input:checked + .slider {
-  background-color: var(--accent-color);
-  border-color: var(--bgr-color);
+  background-color: var(--widget-accent-color);
+  border-color: var(--widget-bgr-color);
 }
 
 .eggxWidgetRoot input:checked + .slider:before {
   transform: translateX(26px);
-  background-color: var(--bgr-color);
+  background-color: var(--widget-bgr-color);
 }
 
 .eggxWidgetRoot .footer {
   font-size: 0.625rem;
-  margin-top: var(--gap-large);
-  color: var(--secondary-text-color);
+  color: var(--widget-font-hint-color);
   text-align: center;
 }
 
-@media (max-width: 1024px) {
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   .eggxWidgetRoot .widgetContainerImg {
     padding: var(--gap-medium);
+  }
+  .eggxWidgetRoot {
+    --font-size-lg: 24px;
   }
 }
 
 @media (max-width: 768px) {
   .eggxWidgetRoot .widgetContainerImg {
-    padding: var(--gap-medium) var(--gap-small);
+    padding: var(--gap-medium);
   }
 }

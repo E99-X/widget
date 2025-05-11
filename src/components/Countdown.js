@@ -47,15 +47,15 @@ const Countdown = ({ summary, stageView, customColors }) => {
           ? "Next Stage starts in:"
           : "Burning in:"}
       </p>
-      <div className="countdownText text-primary margin-top">
+      <div className="countdownText text-primary m-top-sm">
         <span style={{ color: customColors.primaryColor }}>
-          {String(timeLeft.days).padStart(2, "0")}d :
+          {String(timeLeft.days).padStart(2, "0")}d -
         </span>{" "}
         <span style={{ color: customColors.primaryColor }}>
-          {String(timeLeft.hours).padStart(2, "0")}h :
+          {String(timeLeft.hours).padStart(2, "0")}h -
         </span>{" "}
         <span style={{ color: customColors.primaryColor }}>
-          {String(timeLeft.minutes).padStart(2, "0")}m :
+          {String(timeLeft.minutes).padStart(2, "0")}m -
         </span>{" "}
         <span style={{ color: customColors.primaryColor }}>
           {String(timeLeft.seconds).padStart(2, "0")}s

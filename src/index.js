@@ -1,5 +1,3 @@
-// src/index.js
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
@@ -19,15 +17,18 @@ const { networkConfig } = createNetworkConfig({
 });
 const queryClient = new QueryClient();
 
+// **Expose TokenSaleWidget globally to the window object here**
+if (typeof window !== "undefined") {
+  window.TokenSaleWidget = initTokenSaleWidget;
+  console.log(
+    "TokenSaleWidget has been assigned to window:",
+    window.TokenSaleWidget
+  );
+}
+
+// **Expose initTokenSaleWidget function here**
 export default function initTokenSaleWidget(config = {}) {
-  const {
-    containerId,
-    customColors,
-    avatarUrl,
-    saleId,
-    tokenType,
-    adminCapId,
-  } = config;
+  const { containerId, customColors, avatarUrl, saleId } = config;
 
   if (!containerId) {
     console.error("containerId is required");
@@ -53,7 +54,6 @@ export default function initTokenSaleWidget(config = {}) {
           <WalletProvider
             autoConnect
             theme={myTheme}
-            className="outlined"
             slushWallet={{ name: "TokenSaleWidget" }}
             stashedWallet={{ name: "TokenSaleWidget" }}
           >
@@ -61,8 +61,6 @@ export default function initTokenSaleWidget(config = {}) {
               customColors={customColors || {}}
               avatarUrl={avatarUrl || ""}
               saleId={saleId || ""}
-              tokenType={tokenType || "default"}
-              adminCapId={adminCapId || ""}
             />
           </WalletProvider>
         </SuiClientProvider>
@@ -71,6 +69,7 @@ export default function initTokenSaleWidget(config = {}) {
   );
 }
 
+// Rendering for your regular React app
 const rootEl = document.getElementById("root");
 if (rootEl) {
   ReactDOM.createRoot(rootEl).render(
