@@ -12,8 +12,10 @@ import Countdown from "./components/Countdown";
 import Button from "./components/Button";
 import { useSaleSummary } from "./hooks/useSaleSummary";
 import { useSaleStage } from "./hooks/useSaleStage";
+import defaultAvatar from "./assets/symbol.svg";
 
-const App = ({ customColors = {}, avatarUrl = "", saleId }) => {
+const App = ({ customColors = {}, avatarUrl, saleId }) => {
+  const finalAvatarUrl = avatarUrl || defaultAvatar;
   const rootRef = useRef(null);
   const {
     primaryColor = "#a19d9d",
@@ -157,7 +159,7 @@ const App = ({ customColors = {}, avatarUrl = "", saleId }) => {
             stageView={stageView}
             customColors={{ primaryColor, bgrColor, accentColor }}
             account={account}
-            avatarUrl={avatarUrl}
+            avatarUrl={finalAvatarUrl}
           />
         )}
 
