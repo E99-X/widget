@@ -53,6 +53,7 @@ const BuyWidget = ({
         type="number"
         value={tokenAmount}
         onChange={handleInputChange}
+        autoComplete="off"
         placeholder="0"
         className=""
       />

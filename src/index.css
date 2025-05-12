@@ -19,7 +19,7 @@
   --font-family: "Arial", sans-serif;
   --transition-speed: 0.3s;
   --font-size-base: 16px;
-  --font-size-lg: 32px;
+  --font-size-lg: clamp(20px, 9vw, 32px);
   --line-height-base: 1.5;
 
   --border-radius: 8px;
@@ -49,12 +49,13 @@ p {
 .eggxWidgetRoot .countdownText {
   font-size: var(--font-size-lg);
   line-height: 1.2;
-  text-align: center;
+  white-space: nowrap;
+  margin-bottom: var(--gap-medium);
 }
 
 .eggxWidgetRoot .widgetContainerImg {
   max-width: 1200px;
-  padding: var(--gap-large);
+  padding: var(--gap-medium) var(--gap-small);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -113,6 +114,12 @@ p {
   filter: brightness(0.85);
 }
 
+.eggxWidgetRoot .stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .eggxWidgetRoot input,
 .eggxWidgetRoot textarea {
   appearance: none;
@@ -121,7 +128,7 @@ p {
   color: var(--widget-primary-color);
   padding: var(--spacing-unit) var(--gap-medium);
   font-size: var(--font-size-base);
-  margin-bottom: var(--gap-medium);
+  margin-bottom: var(--gap-small);
   border-radius: var(--border-radius);
   border: 1px solid var(--widget-font-hint-color);
   box-sizing: border-box;
@@ -246,17 +253,11 @@ p {
   text-align: center;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
-  .eggxWidgetRoot .widgetContainerImg {
-    padding: var(--gap-medium);
-  }
+@media (min-width: 768px) {
   .eggxWidgetRoot {
-    --font-size-lg: 24px;
+    --font-size-lg: 28px;
   }
-}
-
-@media (max-width: 768px) {
   .eggxWidgetRoot .widgetContainerImg {
-    padding: var(--gap-medium);
+    padding: var(--gap-large) var(--gap-medium);
   }
 }
