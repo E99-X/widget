@@ -45,7 +45,6 @@ export function useSaleSummary(saleId) {
       const match = fullType.match(/^.+<(.+)>$/);
       if (match) {
         tokenType = match[1];
-        console.log("✅ Extracted tokenType:", tokenType);
       } else {
         console.warn("❌ Could not extract tokenType from:", fullType);
       }

@@ -32,13 +32,9 @@ This widget allows anyone to embed a fully on-chain token sale powered by the Eg
 
 Token and Token Sale object can be created following the guidelines: [https://github.com/E99-X/user_coin_on_eggx](https://github.com/E99-X/user_coin_on_eggx)
 
-## 🌐 Live Demo
-
+## [🌐 Live Demo](https://e99x.com/)
 Try the widget instantly at:
 
-```
-https://e99x.com/
-```
 
 Interact with fully deployed test sales — no setup required.
 
@@ -76,13 +72,13 @@ Widget uses under the hood `./src/constants/constants.js`:
 
 ```js
 export const PACKAGE_ID =
-  "0x34218f8b8ed94c0c89bdf312188a612a9f9b2b4db6c70ff9c85e1ff52ea973c0"; // EggX Protocol Package
+  "0x023177c42f5ff2f00de27af9132c17143446df41148c4fd132a2f7569b8fffa0"; // EggX Protocol Package
 
 export const AUTO_PACKAGE_ID =
-  "0xd884f7edb4b8b2fcacccc256673901d095873471bc95c1b1e9f9f0748ce28af2"; // Autopilot Package
+  "0x8d5a779f3763fe9c1d8a9e2871e103190cf14a7c503fc80dbf00712e8b54e459";// Autopilot Package
 
 export const AUTOPILOT =
-  "0xb330c1f81a15bbf76b8c41906caa42808229be75d959b03335de5dfa27e0d5ad"; // Shared Autopilot Object
+  "0xf84f471cb3b61f822579cf594721f37b83a5b964afd521b3adea86b99a9b0e1d";// Shared Autopilot Object
 ```
 
 These are required for interaction with EggX and Autopilot smart contracts.
