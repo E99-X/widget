@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import Toggle from "./Toggle";
-import { useSuiClient } from "@mysten/dapp-kit";
 import { useAdvanceSale } from "../hooks/useAdvanceSale";
 import { useAutopilotToggle } from "../hooks/useAutopilotToggle";
-import { PACKAGE_ID } from "../constants/contract";
+import useAdminCap from "../hooks/useAdminCap";
 
 const AdminWidget = ({
   account,
@@ -16,32 +15,8 @@ const AdminWidget = ({
   customColors,
 }) => {
   const { saleState } = summary || {};
-  const sui = useSuiClient();
-  const [adminCapId, setAdminCapId] = useState(null);
 
-  useEffect(() => {
-    if (!account?.address || !tokenType) return;
-
-    const adminCapType = `${PACKAGE_ID}::admin_config::AdminCap<${tokenType}>`;
-    console.log("🔍 Looking for adminCap of type:", adminCapType);
-
-    sui
-      .getOwnedObjects({ owner: account.address, options: { showType: true } })
-      .then((res) => {
-        console.log("📦 Owned objects:", res);
-        const match = res.data.find((obj) => obj.data?.type === adminCapType);
-
-        if (match?.data?.objectId) {
-          console.log("✅ Found AdminCap ID:", match.data.objectId);
-          setAdminCapId(match.data.objectId);
-        } else {
-          console.warn("❌ AdminCap not found for type:", adminCapType);
-        }
-      })
-      .catch((err) => {
-        console.error("🔥 Failed to fetch admin cap:", err);
-      });
-  }, [account?.address, tokenType, sui]);
+  const adminCapId = useAdminCap(saleId, tokenType, account?.address);
 
   const { advanceSale, isSubmitting } = useAdvanceSale({
     packageId,

@@ -1,7 +1,10 @@
 // CONSTANTS
 export const PACKAGE_ID =
-  "0x34218f8b8ed94c0c89bdf312188a612a9f9b2b4db6c70ff9c85e1ff52ea973c0";
+  "0x023177c42f5ff2f00de27af9132c17143446df41148c4fd132a2f7569b8fffa0";
 export const AUTO_PACKAGE_ID =
-  "0xd884f7edb4b8b2fcacccc256673901d095873471bc95c1b1e9f9f0748ce28af2";
+  "0x8d5a779f3763fe9c1d8a9e2871e103190cf14a7c503fc80dbf00712e8b54e459";
 export const AUTOPILOT =
-  "0xb330c1f81a15bbf76b8c41906caa42808229be75d959b03335de5dfa27e0d5ad";
+  "0xf84f471cb3b61f822579cf594721f37b83a5b964afd521b3adea86b99a9b0e1d";
+  export const SUI_RPC_URL = "https://fullnode.testnet.sui.io";
+
+
