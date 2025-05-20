@@ -38,8 +38,8 @@ This widget allows anyone to embed a fully on-chain token sale powered by the Eg
 Token and Token Sale object can be created following the guidelines: [https://github.com/E99-X/user_coin_on_eggx](https://github.com/E99-X/user_coin_on_eggx)
 
 ## [Live Demo](https://e99x.com/)
-Try the widget instantly at:
 
+Try the widget instantly at:
 
 Interact with fully deployed test sales — no setup required.
 
@@ -58,17 +58,18 @@ npm run serve
 <script src="https://widget.e99x.com/widget.js"></script>
 <script>
   window.TokenSaleWidget({
-    containerId: 'previewWidget-1',
+    containerId: "previewWidget-1",
     customColors: {
-        primaryColor: '#dfdfdf',
-        bgrColor: '#1c1c1e',
-        accentColor: '#f8df00',
+      primaryColor: "#dfdfdf",
+      bgrColor: "#1c1c1e",
+      accentColor: "#f8df00",
     },
     avatarUrl: "",
     saleId: "0xYourTokenSaleID",
   });
 </script>
 ```
+
 To render multiple widgets on the same page, just add more containers (with unique IDs) and call TokenSaleWidget again:
 
 ```html
@@ -76,13 +77,13 @@ To render multiple widgets on the same page, just add more containers (with uniq
 <div id="previewWidget-2"></div>
 <script src="https://widget.e99x.com/widget.js"></script>
 <script>
-  window.TokenSaleWidget({ containerId: 'previewWidget-1', /* … */ });
-  window.TokenSaleWidget({ containerId: 'previewWidget-2', /* … */ });
+  window.TokenSaleWidget({ containerId: "previewWidget-1" /* … */ });
+  window.TokenSaleWidget({ containerId: "previewWidget-2" /* … */ });
 </script>
 ```
 
+## In a React app
 
-## In a React app 
 Use [eggx_platform](https://github.com/orgs/E99-X/repositories) reference
 If you’re running the demo locally on localhost:3001, you can load the widget script dynamically and render it into a React component. For example:
 
@@ -138,7 +139,7 @@ export default function PreviewWidget({ saleId, avatarUrl, customColors }) {
 
 ## License
 
-© 2025 EggX. All rights reserved
+© 2025 Egg-X. All rights reserved
 
 ---
 

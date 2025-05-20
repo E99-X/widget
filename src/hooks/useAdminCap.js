@@ -13,26 +13,29 @@ export default function useAdminCap(saleId, tokenType, owner) {
 
     (async () => {
       try {
-        // get sale’s shared version
-        const { data: sale } = await sui.getObject({
-          id: saleId,
-          options: { showOwner: true },
-        });
-        const saleVersion = sale.owner?.Shared?.initial_shared_version;
-        if (!saleVersion) throw new Error("no saleVersion");
-
-        // fetch AdminCaps
         const { data: owned } = await sui.getOwnedObjects({
           owner,
-          options: { showType: true, showVersion: true },
+          options: { showType: true },
         });
+
         const candidates = owned.filter((o) => o.data.type === capType);
 
-        // pick the one whose version matches
-        const match = candidates.find(
-          (o) => String(o.data.version) === String(saleVersion)
+        console.log("🔍 Looking for AdminCap of type:", capType);
+        console.log(
+          "🔎 Found AdminCaps:",
+          candidates.map((c) => c.data.objectId)
         );
-        if (match) setAdminCapId(match.data.objectId);
+
+        if (candidates.length === 0) {
+          console.warn("⚠️ No AdminCap found for token type.");
+          return;
+        }
+
+        if (candidates.length > 1) {
+          console.warn("⚠️ Multiple AdminCaps found, using the first.");
+        }
+
+        setAdminCapId(candidates[0].data.objectId);
       } catch (e) {
         console.warn("useAdminCap:", e.message || e);
       }
