@@ -6,6 +6,7 @@ import {
 } from "@mysten/dapp-kit";
 import { PACKAGE_ID } from "./constants/contract";
 import Stat from "./components/Stat";
+import EndStat from "./components/EndStat";
 import AdminWidget from "./components/AdminWidget";
 import BuyWidget from "./components/BuyWidget";
 import Countdown from "./components/Countdown";
@@ -178,17 +179,32 @@ const App = ({ customColors = {}, avatarUrl, saleId }) => {
         )}
       </div>
 
-      <Stat
-        summary={saleSummary}
-        stageView={stageView}
-        isSummaryLoading={loadingSummary}
-        isStageLoading={loadingStage}
-        isSummaryError={isSummaryError}
-        isStageError={isStageError}
-        summaryError={summaryError}
-        stageError={stageError}
-        customColors={{ primaryColor, bgrColor, accentColor }}
-      />
+      {saleSummary && saleSummary.saleState === "Finalized" ? (
+        <EndStat
+          summary={saleSummary}
+          stageView={stageView}
+          isSummaryLoading={loadingSummary}
+          isStageLoading={loadingStage}
+          isSummaryError={isSummaryError}
+          isStageError={isStageError}
+          summaryError={summaryError}
+          stageError={stageError}
+          customColors={{ primaryColor, bgrColor, accentColor }}
+        />
+      ) : (
+        <Stat
+          summary={saleSummary}
+          stageView={stageView}
+          isSummaryLoading={loadingSummary}
+          isStageLoading={loadingStage}
+          isSummaryError={isSummaryError}
+          isStageError={isStageError}
+          summaryError={summaryError}
+          stageError={stageError}
+          customColors={{ primaryColor, bgrColor, accentColor }}
+        />
+      )}
+
       <div className="footer w-100 text-center m-top-md ">
         <p>© 2025 EggX. All rights reserved.</p>
       </div>
