@@ -47,9 +47,7 @@ const AdminWidget = ({
       </div>
 
       {saleState === "Finalized" ? (
-        <p className="my-sm" style={{ color: customColors.primaryColor }}>
-          Token Sale is {saleState}
-        </p>
+        ""
       ) : (
         <>
           {saleState === "Not Started" ? (

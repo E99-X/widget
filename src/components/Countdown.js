@@ -42,11 +42,18 @@ const Countdown = ({ summary, stageView, customColors }) => {
 
   return (
     <div className="text-center">
-      <p className="">
-        {summary.finModeText == "Join Pool"
-          ? "Next Stage starts in:"
-          : "Burning in:"}
-      </p>
+      {summary.saleState === "Finalized" ? (
+        <p className="my-sm" style={{ color: customColors.primaryColor }}>
+          Token Sale is {summary.saleState}
+        </p>
+      ) : (
+        <p className="">
+          {summary.finModeText == "Join Pool"
+            ? "Next Stage starts in:"
+            : "Burning in:"}
+        </p>
+      )}
+
       <div className="countdownText text-primary m-top-sm">
         <span style={{ color: customColors.primaryColor }}>
           {String(timeLeft.days).padStart(2, "0")}d :
