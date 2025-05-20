@@ -55,6 +55,7 @@ const BuyWidget = ({
         onChange={handleInputChange}
         autoComplete="off"
         placeholder="0"
+        inputMode="decimal"
         className=""
       />
 

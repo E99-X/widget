@@ -39,7 +39,6 @@ export function useSaleSummary(saleId) {
     }
 
     const fullType = objResp.data.type;
-    console.log("🔍 Full type string:", fullType);
 
     if (fullType) {
       const match = fullType.match(/^.+<(.+)>$/);

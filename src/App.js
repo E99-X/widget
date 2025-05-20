@@ -6,7 +6,6 @@ import {
 } from "@mysten/dapp-kit";
 import { PACKAGE_ID } from "./constants/contract";
 import Stat from "./components/Stat";
-import EndStat from "./components/EndStat";
 import AdminWidget from "./components/AdminWidget";
 import BuyWidget from "./components/BuyWidget";
 import Countdown from "./components/Countdown";
@@ -52,38 +51,7 @@ const App = ({ customColors = {}, avatarUrl, saleId }) => {
     disconnect();
   };
 
-  useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
-
-    el.style.setProperty("--widget-primary-color", primaryColor);
-    el.style.setProperty("--widget-bgr-color", bgrColor);
-    el.style.setProperty("--widget-accent-color", accentColor);
-
-    const primaryRgb = hexToRgb(primaryColor);
-    const bgrRgb = hexToRgb(bgrColor);
-
-    if (primaryRgb) {
-      el.style.setProperty("--widget-primary-color-r", primaryRgb.r);
-      el.style.setProperty("--widget-primary-color-g", primaryRgb.g);
-      el.style.setProperty("--widget-primary-color-b", primaryRgb.b);
-    }
-
-    if (bgrRgb) {
-      const { h, s, l } = rgbToHsl(bgrRgb);
-
-      const darkL = Math.max(6, l - 2); // stays near #151516
-      const lightL = Math.min(20, l + 6); // subtle brighter tone
-
-      el.style.setProperty("--widget-bgr-dark", `hsl(${h}, ${s}%, ${darkL}%)`);
-      el.style.setProperty(
-        "--widget-bgr-light",
-        `hsl(${h}, ${s}%, ${lightL}%)`
-      );
-    }
-  }, [primaryColor, bgrColor, accentColor]);
-
-  const hexToRgb = (hex) => {
+  function hexToRgb(hex) {
     const m = /^#([0-9a-f]{6}|[0-9a-f]{3})$/i.exec(hex);
     if (!m) return null;
     const full =
@@ -97,9 +65,9 @@ const App = ({ customColors = {}, avatarUrl, saleId }) => {
     const g = parseInt(full.slice(2, 4), 16);
     const b = parseInt(full.slice(4, 6), 16);
     return { r, g, b };
-  };
+  }
 
-  const rgbToHsl = ({ r, g, b }) => {
+  function rgbToHsl({ r, g, b }) {
     r /= 255;
     g /= 255;
     b /= 255;
@@ -131,7 +99,37 @@ const App = ({ customColors = {}, avatarUrl, saleId }) => {
       s: Math.round(s * 100),
       l: Math.round(l * 100),
     };
-  };
+  }
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+
+    el.style.setProperty("--widget-primary-color", primaryColor);
+    el.style.setProperty("--widget-bgr-color", bgrColor);
+    el.style.setProperty("--widget-accent-color", accentColor);
+
+    const primaryRgb = hexToRgb(primaryColor);
+    const bgrRgb = hexToRgb(bgrColor);
+
+    if (primaryRgb) {
+      el.style.setProperty("--widget-primary-color-r", primaryRgb.r);
+      el.style.setProperty("--widget-primary-color-g", primaryRgb.g);
+      el.style.setProperty("--widget-primary-color-b", primaryRgb.b);
+    }
+
+    if (bgrRgb) {
+      const { h, s, l } = rgbToHsl(bgrRgb);
+      const darkL = Math.max(6, l - 2);
+      const lightL = Math.min(20, l + 6);
+
+      el.style.setProperty("--widget-bgr-dark", `hsl(${h}, ${s}%, ${darkL}%)`);
+      el.style.setProperty(
+        "--widget-bgr-light",
+        `hsl(${h}, ${s}%, ${lightL}%)`
+      );
+    }
+  }, [primaryColor, bgrColor, accentColor]);
 
   return (
     <div ref={rootRef} className="eggxWidgetRoot widgetContainerImg">
@@ -179,31 +177,17 @@ const App = ({ customColors = {}, avatarUrl, saleId }) => {
         )}
       </div>
 
-      {saleSummary && saleSummary.saleState === "Finalized" ? (
-        <EndStat
-          summary={saleSummary}
-          stageView={stageView}
-          isSummaryLoading={loadingSummary}
-          isStageLoading={loadingStage}
-          isSummaryError={isSummaryError}
-          isStageError={isStageError}
-          summaryError={summaryError}
-          stageError={stageError}
-          customColors={{ primaryColor, bgrColor, accentColor }}
-        />
-      ) : (
-        <Stat
-          summary={saleSummary}
-          stageView={stageView}
-          isSummaryLoading={loadingSummary}
-          isStageLoading={loadingStage}
-          isSummaryError={isSummaryError}
-          isStageError={isStageError}
-          summaryError={summaryError}
-          stageError={stageError}
-          customColors={{ primaryColor, bgrColor, accentColor }}
-        />
-      )}
+      <Stat
+        summary={saleSummary}
+        stageView={stageView}
+        isSummaryLoading={loadingSummary}
+        isStageLoading={loadingStage}
+        isSummaryError={isSummaryError}
+        isStageError={isStageError}
+        summaryError={summaryError}
+        stageError={stageError}
+        customColors={{ primaryColor, bgrColor, accentColor }}
+      />
 
       <div className="footer w-100 text-center m-top-md ">
         <p>© 2025 EggX. All rights reserved.</p>
