@@ -71,6 +71,12 @@ p {
   padding: var(--gap-medium);
 }
 
+.img-container img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
 .eggxWidgetRoot button {
   appearance: none;
   padding: var(--spacing-unit) var(--gap-medium);
