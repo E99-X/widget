@@ -35,9 +35,6 @@ const AdminWidget = ({
 
   return (
     <div className="text-center">
-      <p style={{ fontSize: 12, opacity: 0.7 }}>
-        AdminCap ID: {adminCapId || "null"}
-      </p>
       <div className="my-sm">
         <p className="m-top-sm flex">
           <span>Sale state: </span>
