@@ -1,46 +1,66 @@
 import { useState, useEffect } from "react";
-import { useSuiClient } from "@mysten/dapp-kit";
+import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 import { PACKAGE_ID } from "../constants/contract";
 
-export default function useAdminCap(saleId, tokenType, owner) {
-  const sui = useSuiClient();
+const client = new SuiClient({ url: getFullnodeUrl("testnet") });
+const SALE_EVENT = `${PACKAGE_ID}::dashboard_utils::SaleLaunched`;
+
+export default function useAdminCap(saleId) {
   const [adminCapId, setAdminCapId] = useState(null);
 
   useEffect(() => {
-    if (!saleId || !tokenType || !owner) return;
+    if (!saleId) return;
 
-    const capType = `${PACKAGE_ID}::admin_config::AdminCap<${tokenType}>`;
-
-    (async () => {
+    const fetchCap = async () => {
       try {
-        const { data: owned } = await sui.getOwnedObjects({
-          owner,
-          options: { showType: true },
+        const events = await client.queryEvents({
+          query: { MoveEventType: SALE_EVENT },
+          limit: 50,
         });
 
-        const candidates = owned.filter((o) => o.data.type === capType);
+        for (const event of events.data) {
+          const txDigest = event.id.txDigest;
 
-        console.log("🔍 Looking for AdminCap of type:", capType);
-        console.log(
-          "🔎 Found AdminCaps:",
-          candidates.map((c) => c.data.objectId)
-        );
+          const tx = await client.getTransactionBlock({
+            digest: txDigest,
+            options: {
+              showObjectChanges: true,
+            },
+          });
 
-        if (candidates.length === 0) {
-          console.warn("⚠️ No AdminCap found for token type.");
-          return;
+          const createdObjects = tx.objectChanges?.filter(
+            (c) => c.type === "created"
+          );
+
+          const createdSale = createdObjects?.find((c) =>
+            c.objectType?.startsWith(`${PACKAGE_ID}::sale_utils::TokenSale<`)
+          );
+
+          if (!createdSale) continue;
+
+          if (createdSale.objectId !== saleId) continue;
+
+          const createdCap = createdObjects.find((c) =>
+            c.objectType?.includes("AdminCap<")
+          );
+
+          if (createdCap) {
+            setAdminCapId(createdCap.objectId);
+          } else {
+            console.warn("⚠️ No AdminCap found in tx:", txDigest);
+          }
+
+          return; // Stop after finding the matching tx
         }
 
-        if (candidates.length > 1) {
-          console.warn("⚠️ Multiple AdminCaps found, using the first.");
-        }
-
-        setAdminCapId(candidates[0].data.objectId);
+        console.warn("⚠️ No SaleLaunched event matched sale ID:", saleId);
       } catch (e) {
-        console.warn("useAdminCap:", e.message || e);
+        console.error("❌ useAdminCap:", e);
       }
-    })();
-  }, [saleId, tokenType, owner, sui]);
+    };
+
+    fetchCap();
+  }, [saleId]);
 
   return adminCapId;
 }
