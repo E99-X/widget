@@ -1,10 +1,10 @@
 // CONSTANTS
 export const PACKAGE_ID =
-  "0x023177c42f5ff2f00de27af9132c17143446df41148c4fd132a2f7569b8fffa0";
+  "0x9543dbf51ccaed19e157ab402f9761aa5264018cda26a22c1e30c61208872c10";
 export const AUTO_PACKAGE_ID =
-  "0x8d5a779f3763fe9c1d8a9e2871e103190cf14a7c503fc80dbf00712e8b54e459";
+  "0xdcb76574b0e521b3b708c4cedc509c9050cd72f67c9bce2b782b9b382619a960";
 export const AUTOPILOT =
-  "0xf84f471cb3b61f822579cf594721f37b83a5b964afd521b3adea86b99a9b0e1d";
-  export const SUI_RPC_URL = "https://fullnode.testnet.sui.io";
-
-
+  "0x97909c49b0bcb94d8d9e5aac3a993b3e117e4157d96ddaf1592353738b2d5913";
+export const SALEBOOK =
+  "0xb9456e719ddcb80865905b079906430db4f1e38bab33a9c4a89d61ee96fd858b";
+export const SUI_RPC_URL = "https://fullnode.testnet.sui.io";

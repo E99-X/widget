@@ -1,46 +1,72 @@
-import { useState, useEffect } from "react";
-import { useSuiClient } from "@mysten/dapp-kit";
-import { PACKAGE_ID } from "../constants/contract";
+import { useEffect, useState } from "react";
+const { SuiClient, getFullnodeUrl } = require("@mysten/sui/client");
+const { SALEBOOK } = require("../constants/contract");
 
-export default function useAdminCap(saleId, tokenType, owner) {
-  const sui = useSuiClient();
+const client = new SuiClient({
+  url: getFullnodeUrl("testnet"),
+});
+
+export function useAdminCap(saleId, userAddress) {
   const [adminCapId, setAdminCapId] = useState(null);
 
   useEffect(() => {
-    if (!saleId || !tokenType || !owner) return;
+    if (!userAddress || !saleId) {
+      setAdminCapId(null);
+      return;
+    }
 
-    const capType = `${PACKAGE_ID}::admin_config::AdminCap<${tokenType}>`;
-
-    (async () => {
+    async function fetchAdminCap() {
       try {
-        const { data: owned } = await sui.getOwnedObjects({
-          owner,
-          options: { showType: true },
+        const salesBookObj = await client.getObject({
+          id: SALEBOOK,
+          options: { showContent: true },
         });
 
-        const candidates = owned.filter((o) => o.data.type === capType);
+        const outerTableId =
+          salesBookObj?.data?.content?.fields?.sales?.fields?.id?.id;
 
-        console.log("🔍 Looking for AdminCap of type:", capType);
-        console.log(
-          "🔎 Found AdminCaps:",
-          candidates.map((c) => c.data.objectId)
+        const usersArr = await client.getDynamicFields({
+          parentId: outerTableId,
+        });
+
+        const userField = usersArr.data.find(
+          (field) => field.name.value === userAddress
         );
+        if (!userField) throw new Error("User not found in sales registry");
 
-        if (candidates.length === 0) {
-          console.warn("⚠️ No AdminCap found for token type.");
-          return;
-        }
+        const userTableObj = await client.getObject({
+          id: userField.objectId,
+          options: { showContent: true },
+        });
 
-        if (candidates.length > 1) {
-          console.warn("⚠️ Multiple AdminCaps found, using the first.");
-        }
+        const userInnerTableId =
+          userTableObj.data.content.fields.value.fields.id.id;
 
-        setAdminCapId(candidates[0].data.objectId);
+        const salesArr = await client.getDynamicFields({
+          parentId: userInnerTableId,
+        });
+
+        const saleField = salesArr.data.find(
+          (field) => field.name.value === saleId
+        );
+        if (!saleField) throw new Error("Sale not found for user");
+
+        const saleDfieldId = saleField.objectId;
+        const saleDfieldObj = await client.getObject({
+          id: saleDfieldId,
+          options: { showContent: true },
+        });
+
+        const adminCapId = saleDfieldObj.data.content.fields.value;
+        setAdminCapId(adminCapId);
       } catch (e) {
-        console.warn("useAdminCap:", e.message || e);
+        console.error("❌ Error fetching adminCap:", e.message);
+        setAdminCapId(null);
       }
-    })();
-  }, [saleId, tokenType, owner, sui]);
+    }
 
-  return adminCapId;
+    fetchAdminCap();
+  }, [userAddress, saleId]);
+
+  return { adminCapId };
 }

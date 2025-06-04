@@ -3,7 +3,7 @@ import Button from "./Button";
 import Toggle from "./Toggle";
 import { useAdvanceSale } from "../hooks/useAdvanceSale";
 import { useAutopilotToggle } from "../hooks/useAutopilotToggle";
-import useAdminCap from "../hooks/useAdminCap";
+import { useAdminCap } from "../hooks/useAdminCap";
 
 const AdminWidget = ({
   account,
@@ -16,7 +16,7 @@ const AdminWidget = ({
 }) => {
   const { saleState } = summary || {};
 
-  const adminCapId = useAdminCap(saleId, tokenType, account?.address);
+  const { adminCapId } = useAdminCap(saleId, account?.address);
 
   const { advanceSale, isSubmitting } = useAdvanceSale({
     packageId,
